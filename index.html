@@ -707,7 +707,8 @@
         <div class="col-lg-9 align-self-center">
           <div class="row">
             <div class="col-lg-12">
-              <form id="contact" action="submit" method="post">
+              <form onsubmit="sendEmail()" id="contact" action="submit" method="post">
+                <!-- onsubmit="sendEmail(); reset(); return false; -->
                 <div class="row">
                   <div class="col-lg-12">
                     <h2>Let's get in touch</h2>
@@ -752,7 +753,8 @@
               </li>
               <li>
                 <h6>Email Address</h6>
-                <span>info@TechHype.edu</span>
+                <!-- <a href=""><span></span></a> -->
+                <a href="mailto:oumawere2001@gmail.com?subject=Your%20Subject&body=Your%20Message%20Body"><span>info@TechHype.edu</span></a>
               </li>
               <li>
                 <h6>Street Address</h6>
@@ -867,6 +869,47 @@ const validate = () => {
 $('#email').on('input', validate);
 </script>
 <!-- validate email end -->
+<!-- script to send email start -->
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+    function sendEmail(){
+      Email.send({
+	//   SecureToken : "C973D7AD-F097-4B95-91F4-40ABC5567812",
+      Host : "smtp.elasticemail.com",
+      Username : "EmailTest",
+      Password : "ggbazgqbwirqglld",
+      To : "oraclevincent333@gmail.com",
+      From : document.getElementById("email").value,
+      Subject : "Subject:"+document.getElementById("subject").value,
+      Body : "Name:"+ document.getElementById("name").value 
+	  + "<br> Email:"+document.getElementById("email").value
+	  + "<br> Phone no:"+document.getElementById("phone").value
+	  + "<br> Message:"+document.getElementById("comment").value,
+}).then(
+  message =>{
+	if (message="OK"){
+	  Swal.fire({
+      title: "Success!",
+      text: "Message sent Successfully!",
+      icon: "success"
+	
+});
+}
+    else{
+   Swal.fire({
+   icon: "error",
+   title: "Oops...",
+   text: "Something went wrong!",
+   footer: '<a href="index.html">Why do I have this issue?</a>'
+});
+} 
+}
+);
+}
+
+</script>
+<!-- script to send email end -->
+
 </body>
 
 </body>
